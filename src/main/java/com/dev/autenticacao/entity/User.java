@@ -1,8 +1,8 @@
-package com.dev.autenticacao;
+package com.dev.autenticacao.entity;
 
 import jakarta.persistence.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "users")
@@ -14,24 +14,27 @@ public class User {
 
     private String name;
 
+    @Column(unique = true)
     private String cpf;
 
-    private Date dataNascimento;
+    private LocalDate dataNascimento;
+
+    private boolean tokenUsado;
 
 
     public User(){  //construtor vazio
 
     }
 
-
-    public User(Long id, String name, String cpf, Date dataNascimento) {
+    public User(Long id, String name, String cpf, LocalDate dataNascimento, boolean tokenUsado) {
         this.id = id;
         this.name = name;
         this.cpf = cpf;
         this.dataNascimento = dataNascimento;
+        this.tokenUsado = tokenUsado;
     }
 
-    public Long getId() {               //não temos o sette id.
+    public Long getId() {     // não temos o setter do id
         return id;
     }
 
@@ -52,11 +55,19 @@ public class User {
         this.cpf = cpf;
     }
 
-    public Date getDataNascimento() {
+    public LocalDate getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(Date dataNascimento) {
+    public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
+    }
+
+    public boolean isTokenUsado() {
+        return tokenUsado;
+    }
+
+    public void setTokenUsado(boolean tokenUsado) {
+        this.tokenUsado = tokenUsado;
     }
 }
