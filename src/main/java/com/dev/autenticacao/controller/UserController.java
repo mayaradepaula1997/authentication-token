@@ -2,6 +2,7 @@ package com.dev.autenticacao.controller;
 
 
 import com.dev.autenticacao.entity.User;
+import com.dev.autenticacao.entity.dto.CpfRequest;
 import com.dev.autenticacao.entity.dto.CreateUser;
 import com.dev.autenticacao.entity.dto.UpdateUser;
 import com.dev.autenticacao.service.UserService;
@@ -106,4 +107,21 @@ public class UserController {
         return ResponseEntity.noContent().build();
 
     }
+    //ROTA PARA ENVIAR O CPF PELO LOCAL DE ACESSO E VALIDAR
+    @PostMapping("/valid-access")
+    public ResponseEntity<String> validarAcesso(@RequestBody CpfRequest request) {  // RECEBO O CPF PELA REQUISIÇÃO FEITA DE ONDE FOR E VOU VALIDAR O CPF
+
+        boolean authorized = userService.validatingAccessByCpf(request.cpf());
+        // PEGO O RETORNO ARMAZENO NO AUTHORIZED E VERIFICO SE É TRUE OU FALSE
+        if (authorized) {
+            //SE FOR TRUE ESTÁ LIBERADO
+            return ResponseEntity.ok("Acesso liberado");
+        } else {
+
+            // SE N JÁ SABE, TEM Q PAGAR
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Acesso negado");
+        }
+    }
+
+
 }
