@@ -79,4 +79,30 @@ public class UserService {
         }
 
     }
+
+     public boolean validatingAccessByCpf(String cpf){
+
+         // VERIFICO O CPF NO BANCO
+
+         User user =  userReposiroty.findByCpf(cpf)
+                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+         //VERIFICO SE O TOKEN JÁ FOI USADO
+
+         if (user.isTokenUsado()){
+             return false;   // só retorna false se o token já foi usado
+         }
+
+         user.setTokenUsado(true); //Se o token não foi usado, o usuario vai usar ele, ENTAÕ mudo ele para TRUE, porque foi usado
+
+         userReposiroty.save(user);
+
+
+         return true; // retorno da função caso o usuario ainda não tenha usado o token
+
+
+
+     }
+
+
 }
