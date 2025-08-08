@@ -21,6 +21,14 @@ public class User {
 
     private boolean tokenUsado;
 
+    //PARTE DO TOKEN DIÁRIO
+
+    private String dailyToken;
+
+    private LocalDate dataToken;
+
+
+
 
     public User(){  //construtor vazio
 
@@ -69,5 +77,21 @@ public class User {
 
     public void setTokenUsado(boolean tokenUsado) {
         this.tokenUsado = tokenUsado;
+    }
+
+    public String getDailyToken() {
+        return dailyToken;
+    }
+
+    public void setDailyToken(String dailyToken) {
+        this.dailyToken = dailyToken;
+    }
+
+    public LocalDate getDataToken() {
+        return dataToken;
+    }
+
+    public void setDataToken(LocalDate dataToken) {
+        this.dataToken = dataToken;
     }
 }
